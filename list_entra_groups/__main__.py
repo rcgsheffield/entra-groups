@@ -2,12 +2,10 @@
 
 import argparse
 import logging
-import os
-
-import msgraph
-import msgraph.graph_service_client
 
 import azure.identity.aio
+import msgraph
+import msgraph.graph_service_client
 
 DESCRIPTION = """
 List Entra ID groups.
@@ -40,17 +38,19 @@ def main():
 
     logger.debug("smgraph version %s", msgraph.__version__)
 
-    credential = azure.identity.aio.ClientSecretCredential(
-        tenant_id=os.environ['AZURE_CLIENT_ID'],
-        cliing_token=os.environ['AZURE_CLIENT_SECRET'],
-        client_secret=os.environ['AZURE_CLIENT_SECRET'],
-    )
+    # Use the service connection to authenticate
+    # https://learn.microsoft.com/en-us/python/api/azure-identity/azure.identity.environmentcredential
+    credential = azure.identity.aio.DefaultAzureCredential()
+    # credential = azure.identity.aio.EnvironmentCredential()
 
+    # Initialise Microsoft Graph API client
     client = msgraph.graph_service_client.GraphServiceClient(
         credentials=credential, scopes=SCOPES)
 
+    # Get all the Entra ID groups
     groups = client.groups.get_by_ids
 
+    # Display information about each group
     print(groups)
 
 
