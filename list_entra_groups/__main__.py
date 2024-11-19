@@ -34,7 +34,6 @@ def main():
     )
 
     # https://github.com/microsoftgraph/msgraph-sdk-python
-    # https://learn.microsoft.com/en-us/graph/api/group-list
 
     logger.debug("smgraph version %s", msgraph.__version__)
 
@@ -48,6 +47,7 @@ def main():
         credentials=credential, scopes=SCOPES)
 
     # Get all the Entra ID groups
+    # https://learn.microsoft.com/en-us/graph/api/group-list
     groups = client.groups.get_by_ids
 
     # Display information about each group
