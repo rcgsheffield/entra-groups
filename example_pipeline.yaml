@@ -1,0 +1,17 @@
+# Example Azure DevOps pipeline
+# https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/?view=azure-pipelines
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: PythonScript@0
+    displayName: 'List Microsoft Entra Groups'
+    inputs:
+      scriptPath: 'path/to/your/script.py'
+      pythonType: 'Python'
+      pythonVersion: 'Python3'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+      arguments: '--tenantId $(tenantId) --clientId $(clientId) --clientSecret $(clientSecret)'

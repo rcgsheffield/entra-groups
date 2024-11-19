@@ -1,0 +1,12 @@
+# Python package definition
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "list-entra-groups"
+version = "0.0.1"
+dependencies = [
+    "msgraph-sdk==1.*"
+]
